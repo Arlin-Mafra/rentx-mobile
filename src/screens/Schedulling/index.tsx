@@ -16,6 +16,7 @@ import {
   Footer,
 } from "./styles";
 import { Button } from "../../components/Button";
+import { Calendar } from "../../components/Calendar";
 
 export function Schedulling() {
   return (
@@ -45,7 +46,9 @@ export function Schedulling() {
         </RentalPeriod>
       </Header>
 
-      <Content></Content>
+      <Content>
+        <Calendar />
+      </Content>
 
       <Footer>
         <Button title="Confirmar" />
