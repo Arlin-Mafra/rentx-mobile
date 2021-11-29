@@ -13,6 +13,7 @@ import { useFonts } from "expo-font";
 import theme from "./src/styles/theme";
 import { Schedulling } from "./src/screens/Schedulling";
 import { SchedullingDetails } from "./src/screens/SchedullingDetails";
+import { SchedullingComplete } from "./src/screens/SchedullingComplete";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -29,7 +30,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedullingDetails />
+      <SchedullingComplete />
     </ThemeProvider>
   );
 }
