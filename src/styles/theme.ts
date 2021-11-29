@@ -9,6 +9,7 @@ export default {
         line:'#ebebf0',
         main:'#dc1637',
         main_ligth:'#fdedef',
+        success:"#03b252",
         shape:'#e1e1e8',
         shape_dark:'#29292e'
 

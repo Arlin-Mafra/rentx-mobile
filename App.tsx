@@ -12,6 +12,7 @@ import { CarDetails } from "./src/screens/CarDetails";
 import { useFonts } from "expo-font";
 import theme from "./src/styles/theme";
 import { Schedulling } from "./src/screens/Schedulling";
+import { SchedullingDetails } from "./src/screens/SchedullingDetails";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -28,7 +29,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Schedulling />
+      <SchedullingDetails />
     </ThemeProvider>
   );
 }
