@@ -8,12 +8,9 @@ import {
 } from "@expo-google-fonts/archivo";
 import { Inter_400Regular, Inter_500Medium } from "@expo-google-fonts/inter";
 
-import { CarDetails } from "./src/screens/CarDetails";
 import { useFonts } from "expo-font";
 import theme from "./src/styles/theme";
-import { Schedulling } from "./src/screens/Schedulling";
-import { SchedullingDetails } from "./src/screens/SchedullingDetails";
-import { SchedullingComplete } from "./src/screens/SchedullingComplete";
+import { Routes } from "./src/routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -30,7 +27,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <SchedullingComplete />
+      <Routes />
     </ThemeProvider>
   );
 }

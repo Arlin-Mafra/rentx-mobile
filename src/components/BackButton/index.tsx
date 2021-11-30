@@ -8,10 +8,10 @@ interface Props extends BorderlessButtonProps {
   color?: string;
 }
 
-export function BackButton({ color }: Props) {
+export function BackButton({ color, ...rest }: Props) {
   const theme = useTheme();
   return (
-    <Container>
+    <Container {...rest}>
       <MaterialIcons
         size={24}
         name="chevron-left"

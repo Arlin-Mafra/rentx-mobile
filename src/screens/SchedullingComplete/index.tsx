@@ -1,5 +1,6 @@
 import React from "react";
-import { useWindowDimensions } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { StatusBar, useWindowDimensions } from "react-native";
 
 import LogoSvg from "../../assets/logo_background_gray.svg";
 import DoneSvg from "../../assets/done.svg";
@@ -7,10 +8,17 @@ import DoneSvg from "../../assets/done.svg";
 import { Container, Content, Title, Message, Footer } from "./styles";
 import { ConfirmButton } from "../../components/ConfirmButton";
 
-export function SchedullingComplete() {
+type Props = NativeStackScreenProps<any, "SchedullingComplete">;
+
+export function SchedullingComplete({ navigation }: Props) {
   const { width } = useWindowDimensions();
   return (
     <Container>
+      <StatusBar
+        barStyle="light-content"
+        translucent
+        backgroundColor="transparent"
+      />
       <LogoSvg width={width} />
 
       <Content>
@@ -24,7 +32,7 @@ export function SchedullingComplete() {
         </Message>
       </Content>
       <Footer>
-        <ConfirmButton title="Ok" />
+        <ConfirmButton title="Ok" onPress={() => navigation.navigate("Home")} />
       </Footer>
     </Container>
   );

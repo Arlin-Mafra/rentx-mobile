@@ -1,4 +1,5 @@
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 import theme from "../../styles/theme";
 import { BackButton } from "../../components/BackButton";
@@ -18,7 +19,9 @@ import {
 import { Button } from "../../components/Button";
 import { Calendar } from "../../components/Calendar";
 
-export function Schedulling() {
+type Props = NativeStackScreenProps<any, "Schedulling">;
+
+export function Schedulling({ navigation }: Props) {
   return (
     <Container>
       <Header>
@@ -27,7 +30,10 @@ export function Schedulling() {
           translucent
           backgroundColor="transparent"
         />
-        <BackButton color={theme.colors.shape} />
+        <BackButton
+          color={theme.colors.shape}
+          onPress={() => navigation.goBack()}
+        />
         <Title>
           Escolha uma{"\n"}
           data de início e{"\n"}
@@ -51,7 +57,10 @@ export function Schedulling() {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Confirmar"
+          onPress={() => navigation.navigate("SchedullingDetails")}
+        />
       </Footer>
     </Container>
   );

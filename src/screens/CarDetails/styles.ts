@@ -36,6 +36,7 @@ export const Details = styled.View`
     margin-top: 38px;
 `;
 export const Description = styled.View``;
+
 export const Brand = styled.Text`
     font-family: ${({theme})=> theme.fonts.secondary_500};
     color: ${({theme})=> theme.colors.text_detail};

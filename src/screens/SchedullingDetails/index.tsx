@@ -1,4 +1,5 @@
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Feather } from "@expo/vector-icons";
 import { Accessory } from "../../components/Accessory";
 import { BackButton } from "../../components/BackButton";
@@ -40,11 +41,13 @@ import {
 import theme from "../../styles/theme";
 import { RFValue } from "react-native-responsive-fontsize";
 
-export function SchedullingDetails() {
+type Props = NativeStackScreenProps<any, "SchedullingDetails">;
+
+export function SchedullingDetails({ navigation }: Props) {
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={() => navigation.goBack()} />
       </Header>
       <CarImages>
         <ImagesSlider
@@ -107,7 +110,11 @@ export function SchedullingDetails() {
         </RentalPrice>
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={() => navigation.navigate("SchedullingComplete")}
+        />
       </Footer>
     </Container>
   );

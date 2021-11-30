@@ -1,4 +1,6 @@
 import React from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 import { Accessory } from "../../components/Accessory";
 import { BackButton } from "../../components/BackButton";
 import { ImagesSlider } from "../../components/ImagesSlider";
@@ -28,11 +30,13 @@ import {
   Footer,
 } from "./styles";
 
-export function CarDetails() {
+type Props = NativeStackScreenProps<any, "CarDetails">;
+
+export function CarDetails({ navigation }: Props) {
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => {}} />
+        <BackButton onPress={() => navigation.goBack()} />
       </Header>
       <CarImages>
         <ImagesSlider
@@ -69,7 +73,10 @@ export function CarDetails() {
         </About>
       </Content>
       <Footer>
-        <Button title="Confirmar" />
+        <Button
+          title="Escolher período do aluguel"
+          onPress={() => navigation.navigate("Schedulling")}
+        />
       </Footer>
     </Container>
   );
