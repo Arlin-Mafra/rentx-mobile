@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { CarDTO } from "../../dtos/CarDTO";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
 import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
+import api from "../../services/api";
+import { Load } from "../../components/Load";
 
 type Props = NativeStackScreenProps<any, "Home">;
 
 export function Home({ navigation }: Props) {
-  const CarData = {
-    brad: "audi",
-    name: "RS 5 Coupé",
-    rent: {
-      period: "ao dia",
-      price: 120,
-    },
-    thumbnail:
-      "https://www.webmotors.com.br/imagens/prod/347972/AUDI_RS5_2.9_V6_FSI_GASOLINA_QUATTRO_TIPTRONIC_3479721705455744.png?s=fill&w=440&h=330&q=80&t=true",
-  };
+  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    async function getCars() {
+      try {
+        const response = await api.get("/cars");
+
+        setCars(response.data);
+        console.log(cars);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    getCars();
+  }, []);
 
   return (
     <Container>
@@ -32,16 +42,21 @@ export function Home({ navigation }: Props) {
           <TotalCars>Total de 12 carros</TotalCars>
         </HeaderContent>
       </Header>
-      <CarList
-        data={[1, 2, 3, 4, 5, 6, 7]}
-        keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => (
-          <Car
-            data={CarData}
-            onPress={() => navigation.navigate("CarDetails")}
-          />
-        )}
-      />
+
+      {loading ? (
+        <Load />
+      ) : (
+        <CarList
+          data={cars}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Car
+              data={item}
+              onPress={() => navigation.navigate("CarDetails")}
+            />
+          )}
+        />
+      )}
     </Container>
   );
 }
