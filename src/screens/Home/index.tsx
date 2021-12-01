@@ -29,6 +29,10 @@ export function Home({ navigation }: Props) {
     getCars();
   }, []);
 
+  function handleCarDetails(car: CarDTO) {
+    navigation.navigate("CarDetails", { car });
+  }
+
   return (
     <Container>
       <StatusBar
@@ -50,10 +54,7 @@ export function Home({ navigation }: Props) {
           data={cars}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
-            <Car
-              data={item}
-              onPress={() => navigation.navigate("CarDetails")}
-            />
+            <Car data={item} onPress={() => handleCarDetails(item)} />
           )}
         />
       )}
