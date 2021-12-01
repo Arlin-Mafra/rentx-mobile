@@ -5,13 +5,8 @@ import { Accessory } from "../../components/Accessory";
 import { BackButton } from "../../components/BackButton";
 import { ImagesSlider } from "../../components/ImagesSlider";
 import { Button } from "../../components/Button";
-
-import speedSvg from "../../assets/speed.svg";
-import accelerationSvg from "../../assets/acceleration.svg";
-import forceSvg from "../../assets/force.svg";
-import gasolineSvg from "../../assets/gasoline.svg";
-import exchangeSvg from "../../assets/exchange.svg";
-import peopleSvg from "../../assets/people.svg";
+import { CarDTO } from "../../dtos/CarDTO";
+import { getAccessoriesIcon } from "../../Utils/getAccessoriesIcon";
 
 import {
   Container,
@@ -29,7 +24,6 @@ import {
   Acessories,
   Footer,
 } from "./styles";
-import { CarDTO } from "../../dtos/CarDTO";
 
 type Props = NativeStackScreenProps<any, "CarDetails">;
 
@@ -66,7 +60,7 @@ export function CarDetails({ navigation }: Props) {
             <Accessory
               key={accessory.type}
               name={accessory.name}
-              icon={speedSvg}
+              icon={getAccessoriesIcon(accessory.type)}
             />
           ))}
         </Acessories>
