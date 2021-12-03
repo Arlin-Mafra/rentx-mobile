@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StatusBar } from "react-native";
 import theme from "../../styles/theme";
@@ -17,11 +17,38 @@ import {
   Footer,
 } from "./styles";
 import { Button } from "../../components/Button";
-import { Calendar } from "../../components/Calendar";
+import {
+  Calendar,
+  DayProps,
+  generateInterval,
+  MarkedDateProps,
+} from "../../components/Calendar";
 
 type Props = NativeStackScreenProps<any, "Schedulling">;
 
 export function Schedulling({ navigation }: Props) {
+  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
+    {} as DayProps
+  );
+
+  const [markedDates, setMarkedDate] = useState<MarkedDateProps>();
+
+  function handleChangeDate(date: DayProps) {
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate;
+    let end = date;
+
+    if (start.timestamp > end.timestamp) {
+      start = end;
+      end = start;
+    }
+
+    setLastSelectedDate(end);
+
+    const interval = generateInterval(start, end);
+
+    setMarkedDate(interval);
+    console.log("last", lastSelectedDate.dateString);
+  }
   return (
     <Container>
       <Header>
@@ -53,7 +80,7 @@ export function Schedulling({ navigation }: Props) {
       </Header>
 
       <Content>
-        <Calendar />
+        <Calendar markedDates={markedDates} onDayPress={handleChangeDate} />
       </Content>
 
       <Footer>

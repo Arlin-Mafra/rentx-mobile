@@ -19,7 +19,6 @@ export function Home({ navigation }: Props) {
         const response = await api.get("/cars");
 
         setCars(response.data);
-        console.log(cars);
       } catch (error) {
         console.log(error);
       } finally {
