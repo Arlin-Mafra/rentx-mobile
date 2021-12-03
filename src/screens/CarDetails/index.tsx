@@ -69,7 +69,7 @@ export function CarDetails({ navigation }: Props) {
       <Footer>
         <Button
           title="Escolher período do aluguel"
-          onPress={() => navigation.navigate("Schedulling")}
+          onPress={() => navigation.navigate("Schedulling", { car })}
         />
       </Footer>
     </Container>
