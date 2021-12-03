@@ -24,6 +24,7 @@ import {
   Acessories,
   Footer,
 } from "./styles";
+import { StatusBar } from "react-native";
 
 type Props = NativeStackScreenProps<any, "CarDetails">;
 
@@ -36,6 +37,11 @@ export function CarDetails({ navigation }: Props) {
   const { car } = route.params as Params;
   return (
     <Container>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor="transparent"
+      />
       <Header>
         <BackButton onPress={() => navigation.goBack()} />
       </Header>
