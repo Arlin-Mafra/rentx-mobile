@@ -5,23 +5,25 @@ import theme from '../../styles/theme'
 
 import {getPlataformDate} from '../../Utils/getPlataformDate'
 
-export function generateInterval( start:DayProps, end:DayProps){
+export function generateInterval( start: DayProps, end: DayProps){
     let interval: MarkedDateProps = {};
 
-    eachDayOfInterval({start: new Date(start.timestamp),end: new Date(end.timestamp)}) 
-      .forEach((item)=> {
+    eachDayOfInterval({start: new Date(start.timestamp), end: new Date(end.timestamp)}) 
+    .forEach((item) => {
         const date = format(getPlataformDate(item), 'yyyy-MM-dd')
       
-        interval ={
+        interval = {
             ...interval,
-            [date]: {
-                color: start.dateString === date || end.dateString === date ? 
-                theme.colors.main : theme.colors.main_ligth,
+            [date]: { 
+                color: start.dateString === date || end.dateString === date 
+                ? theme.colors.main : theme.colors.main_ligth,
 
-                textColor: start.dateString === date || end.dateString === date ? 
-                theme.colors.main_ligth : theme.colors.main
+                textColor: start.dateString === date || end.dateString === date 
+                ? theme.colors.main_ligth : theme.colors.main
             }
         }
+        
     });
+  
     return interval;
 }
