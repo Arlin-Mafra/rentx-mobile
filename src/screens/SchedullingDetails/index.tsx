@@ -75,7 +75,12 @@ export function SchedullingDetails({ navigation }: Props) {
 
     const unavailable_dates = [...response.data.unavailable_dates, ...dates];
 
-    api
+    await api.post(`/schedules_byuser`, {
+      user_id: 1,
+      car,
+    });
+
+    await api
       .put(`/schedules_bycars/${car.id}`, { ...dates, unavailable_dates })
       .then(() => navigation.navigate("SchedullingComplete"))
       .catch(() => Alert.alert("Não foi possível finalizar o agendameto!"));
