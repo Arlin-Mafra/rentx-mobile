@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { CarDTO } from "../../dtos/CarDTO";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
 import { StatusBar } from "react-native";
 import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
-import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
 import api from "../../services/api";
 import { Load } from "../../components/Load";
+import theme from "../../styles/theme";
+import {
+  Container,
+  Header,
+  HeaderContent,
+  TotalCars,
+  CarList,
+  MyCarButton,
+} from "./styles";
 
 type Props = NativeStackScreenProps<any, "Home">;
 
@@ -30,6 +39,9 @@ export function Home({ navigation }: Props) {
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
+  }
+  function handleMyCarsOpen() {
+    navigation.navigate("MyCars");
   }
 
   return (
@@ -57,6 +69,9 @@ export function Home({ navigation }: Props) {
           )}
         />
       )}
+      <MyCarButton onPress={handleMyCarsOpen}>
+        <Ionicons name="ios-car-sport" size={32} color={theme.colors.shape} />
+      </MyCarButton>
     </Container>
   );
 }
