@@ -54,7 +54,7 @@ export function Home({ navigation }: Props) {
       <Header>
         <HeaderContent>
           <Logo />
-          <TotalCars>Total de 12 carros</TotalCars>
+          <TotalCars>Total de {cars.length} carros</TotalCars>
         </HeaderContent>
       </Header>
 
