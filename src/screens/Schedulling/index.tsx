@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Alert, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 import theme from "../../styles/theme";
 import { Button } from "../../components/Button";
 import { format } from "date-fns";
@@ -56,14 +56,10 @@ export function Schedulling({ navigation }: Props) {
   const { car } = route.params as Params;
 
   function handleChoosePeriod() {
-    if (!rentalPeriod.startFormated || !rentalPeriod.endFormated) {
-      Alert.alert("Selecione o intervalo para alugar!");
-    } else {
-      navigation.navigate("SchedullingDetails", {
-        car,
-        dates: Object.keys(markedDates),
-      });
-    }
+    navigation.navigate("SchedullingDetails", {
+      car,
+      dates: Object.keys(markedDates),
+    });
   }
 
   function handleChangeDate(date: DayProps) {
@@ -129,7 +125,11 @@ export function Schedulling({ navigation }: Props) {
       </Content>
 
       <Footer>
-        <Button title="Confirmar" onPress={handleChoosePeriod} />
+        <Button
+          title="Confirmar"
+          onPress={handleChoosePeriod}
+          enabled={!!rentalPeriod.startFormated}
+        />
       </Footer>
     </Container>
   );
