@@ -42,7 +42,6 @@ export function MyCars({ navigation }) {
     async function fetchCars() {
       try {
         const response = await api.get(`/schedules_byuser?user_id=1`);
-        console.log(response.data);
         setCars(response.data);
       } catch (error) {
         console.log(error);

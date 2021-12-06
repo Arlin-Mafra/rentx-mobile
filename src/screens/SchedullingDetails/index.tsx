@@ -6,13 +6,6 @@ import { BackButton } from "../../components/BackButton";
 import { ImagesSlider } from "../../components/ImagesSlider";
 import { Button } from "../../components/Button";
 
-import speedSvg from "../../assets/speed.svg";
-import accelerationSvg from "../../assets/acceleration.svg";
-import forceSvg from "../../assets/force.svg";
-import gasolineSvg from "../../assets/gasoline.svg";
-import exchangeSvg from "../../assets/exchange.svg";
-import peopleSvg from "../../assets/people.svg";
-
 import {
   Container,
   Header,
@@ -66,6 +59,7 @@ export function SchedullingDetails({ navigation }: Props) {
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>(
     {} as RentalPeriodProps
   );
+  const [loading, setLoading] = useState(false);
 
   const route = useRoute();
   const { car, dates } = route.params as Params;
@@ -73,6 +67,7 @@ export function SchedullingDetails({ navigation }: Props) {
   const rentTotal = Number(dates.length * car.rent.price);
 
   async function handleConfirmRental() {
+    setLoading(true);
     const response = await api.get(`/schedules_bycars/${car.id}`);
 
     const unavailable_dates = [...response.data.unavailable_dates, ...dates];
@@ -90,7 +85,10 @@ export function SchedullingDetails({ navigation }: Props) {
     await api
       .put(`/schedules_bycars/${car.id}`, { ...dates, unavailable_dates })
       .then(() => navigation.navigate("SchedullingComplete"))
-      .catch(() => Alert.alert("Não foi possível finalizar o agendameto!"));
+      .catch(() => {
+        setLoading(false);
+        Alert.alert("Não foi possível finalizar o agendameto!");
+      });
   }
 
   useEffect(() => {
@@ -176,6 +174,8 @@ export function SchedullingDetails({ navigation }: Props) {
           title="Alugar agora"
           color={theme.colors.success}
           onPress={handleConfirmRental}
+          enabled={!loading}
+          loading={loading}
         />
       </Footer>
     </Container>

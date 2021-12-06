@@ -260,9 +260,9 @@
   ],
   "schedules_bycars": [
     {
-      "0": "2021-12-17",
-      "1": "2021-12-18",
-      "2": "2021-12-19",
+      "0": "2021-12-16",
+      "1": "2021-12-17",
+      "2": "2021-12-18",
       "unavailable_dates": [
         "2021-06-01",
         "2021-06-02",
@@ -289,14 +289,21 @@
         "2021-12-10",
         "2021-12-17",
         "2021-12-18",
-        "2021-12-19"
+        "2021-12-19",
+        "2021-12-14",
+        "2021-12-15",
+        "2021-12-16",
+        "2021-12-16",
+        "2021-12-17",
+        "2021-12-18"
       ],
       "id": "535e8de8-721b-4bac-8b72-7d29be7da467"
     },
     {
-      "0": "2021-12-06",
-      "1": "2021-12-07",
-      "2": "2021-12-08",
+      "0": "2021-12-23",
+      "1": "2021-12-24",
+      "2": "2021-12-25",
+      "3": "2021-12-26",
       "unavailable_dates": [
         "2021-06-15",
         "2021-06-16",
@@ -314,14 +321,22 @@
         "2021-12-26",
         "2021-12-06",
         "2021-12-07",
-        "2021-12-08"
+        "2021-12-08",
+        "2021-12-23",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-26",
+        "2021-12-23",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-26"
       ],
       "id": "ffb71f55-818a-48b1-b7d2-2efc406ede25"
     },
     {
-      "0": "2021-12-03",
-      "1": "2021-12-04",
-      "2": "2021-12-05",
+      "0": "2021-12-10",
+      "1": "2021-12-11",
+      "2": "2021-12-12",
       "unavailable_dates": [
         "2021-08-01",
         "2021-08-21",
@@ -337,22 +352,37 @@
         "2021-05-30",
         "2021-12-03",
         "2021-12-04",
-        "2021-12-05"
+        "2021-12-05",
+        "2021-12-10",
+        "2021-12-11",
+        "2021-12-12"
       ],
       "id": "52930821-cbea-4b05-9f45-7c02b1bb0d8c"
     },
     {
-      "id": "49983f6c-a46a-4dfd-a86e-425b8c72e086",
+      "0": "2021-12-24",
+      "1": "2021-12-25",
+      "2": "2021-12-26",
       "unavailable_dates": [
         "2021-06-19",
         "2021-06-20",
-        "2021-06-21"
-      ]
+        "2021-06-21",
+        "2021-12-23",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-26",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-26"
+      ],
+      "id": "49983f6c-a46a-4dfd-a86e-425b8c72e086"
     },
     {
-      "0": "2021-12-10",
-      "1": "2021-12-11",
-      "2": "2021-12-12",
+      "0": "2021-12-24",
+      "1": "2021-12-25",
+      "2": "2021-12-26",
       "unavailable_dates": [
         "2021-06-01",
         "2021-06-02",
@@ -365,7 +395,10 @@
         "2021-06-19",
         "2021-12-10",
         "2021-12-11",
-        "2021-12-12"
+        "2021-12-12",
+        "2021-12-24",
+        "2021-12-25",
+        "2021-12-26"
       ],
       "id": "508e7193-0078-4615-9071-920b59038fda"
     },
@@ -378,54 +411,6 @@
     }
   ],
   "schedules_byuser": [
-    {
-      "user_id": 1,
-      "car": {
-        "id": "ffb71f55-818a-48b1-b7d2-2efc406ede25",
-        "brand": "Porsche",
-        "name": "Panamera",
-        "about": "O Panamera é um automóvel de luxo coupé com porte grande. Tem motorização dianteira V6 e V8. A tração é integral com uma caixa PDK de sete mudanças e dupla embreagem.",
-        "rent": {
-          "period": "Ao dia",
-          "price": 340
-        },
-        "fuel_type": "gasoline_motor",
-        "thumbnail": "https://storage.googleapis.com/golden-wind/ignite/react-native/thumbnails/2.png",
-        "accessories": [
-          {
-            "type": "speed",
-            "name": "315km/h"
-          },
-          {
-            "type": "acceleration",
-            "name": "2.9s"
-          },
-          {
-            "type": "turning_diameter",
-            "name": "700 HP"
-          },
-          {
-            "type": "gasoline_motor",
-            "name": "Gasoline"
-          },
-          {
-            "type": "exchange",
-            "name": "Auto"
-          },
-          {
-            "type": "seats",
-            "name": "4 pessoas"
-          }
-        ],
-        "photos": [
-          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/4.png",
-          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/5.png"
-        ]
-      },
-      "startDate": "06/12/2021",
-      "endDate": "08/12/2021",
-      "id": 1
-    },
     {
       "user_id": 1,
       "car": {
@@ -471,8 +456,57 @@
           "https://storage.googleapis.com/golden-wind/ignite/react-native/images/3.png"
         ]
       },
-      "startDate": "17/12/2021",
-      "endDate": "19/12/2021",
+      "startDate": "16/12/2021",
+      "endDate": "18/12/2021",
+      "id": 1
+    },
+    {
+      "user_id": 1,
+      "car": {
+        "id": "52930821-cbea-4b05-9f45-7c02b1bb0d8c",
+        "brand": "Chevrolet",
+        "name": "Corvette Z06",
+        "about": "O Chevrolet Corvette Z06 inclui freios Brembo de alto desempenho com pinças maiores no conjunto dianteiro, itens aerodinâmicos com capô de fibra de carbono, suspensão para alto desempenho.",
+        "rent": {
+          "period": "Ao dia",
+          "price": 620
+        },
+        "fuel_type": "gasoline_motor",
+        "thumbnail": "https://storage.googleapis.com/golden-wind/ignite/react-native/thumbnails/3.png",
+        "accessories": [
+          {
+            "type": "speed",
+            "name": "330km/h"
+          },
+          {
+            "type": "acceleration",
+            "name": "6.2s"
+          },
+          {
+            "type": "turning_diameter",
+            "name": "900 HP"
+          },
+          {
+            "type": "gasoline_motor",
+            "name": "Gasoline"
+          },
+          {
+            "type": "exchange",
+            "name": "Auto"
+          },
+          {
+            "type": "seats",
+            "name": "2 pessoas"
+          }
+        ],
+        "photos": [
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/6.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/7.png",
+          "https://storage.googleapis.com/golden-wind/ignite/react-native/images/8.png"
+        ]
+      },
+      "startDate": "10/12/2021",
+      "endDate": "12/12/2021",
       "id": 2
     }
   ]
