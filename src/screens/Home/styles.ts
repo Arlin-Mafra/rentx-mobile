@@ -4,13 +4,9 @@ import { RFValue } from 'react-native-responsive-fontsize';
 import styled from 'styled-components/native';
 import { CarDTO } from "../../dtos/CarDTO";
 
-// interface FlatListProps{
-//     props: ()=> void
-// }
 
 export const Container = styled.View`
   flex: 1;
-
 `;
 
 export const Header = styled.View`

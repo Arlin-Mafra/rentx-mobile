@@ -42,6 +42,8 @@ export const Appointments = styled.View`
     flex-direction: row;
     justify-content: space-between;
     padding: 24px 0;
+
+ 
 `;
 export const AppointmentsTitle = styled.Text`
     color: ${({theme})=> theme.colors.text};
@@ -52,6 +54,37 @@ export const AppointmentsNumber = styled.Text`
     color: ${({theme})=> theme.colors.title};
     font-family: ${({theme})=> theme.fonts.secondary_500};
     font-size: ${RFValue(15)}px;
+`;
+
+export const CarWrapper = styled.View`
+    margin-bottom: 16px;
+    background-color: ${({theme}) => theme.colors.background_secondary};
+
+`;
+export const CarFooter = styled.View`
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 15px;
+
+    background-color: ${({theme})=> theme.colors.background_secondary};            
+`;
+export const CarFooterPeriod = styled.View`
+    flex-direction: row;
+`;
+export const CarFooterTitle = styled.Text`
+    color: ${({theme})=> theme.colors.text_detail};
+    font-family: ${({theme})=> theme.fonts.secondary_500};
+    font-size: ${RFValue(10)}px;
+    text-transform: uppercase ;
+`;
+export const CarFooterDate = styled.Text`
+    color: ${({theme})=> theme.colors.title};
+    font-family: ${({theme})=> theme.fonts.primary_400};
+    font-size: ${RFValue(13)}px;
+
+    margin: 0 10px;
 `;
 
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { RectButtonProps } from "react-native-gesture-handler";
-import GasolineSvg from "../../assets/gasoline.svg";
 import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoriesIcon } from "../../Utils/getAccessoriesIcon";
 
