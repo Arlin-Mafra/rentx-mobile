@@ -3,7 +3,7 @@ import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { CarDTO } from "../../dtos/CarDTO";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
-import { StatusBar, StyleSheet } from "react-native";
+import { StatusBar, StyleSheet, BackHandler } from "react-native";
 import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
 import api from "../../services/api";
@@ -36,6 +36,12 @@ export function Home({ navigation }: Props) {
       }
     }
     getCars();
+  }, []);
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      return true;
+    });
   }, []);
 
   function handleCarDetails(car: CarDTO) {

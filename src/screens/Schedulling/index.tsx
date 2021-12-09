@@ -95,6 +95,7 @@ export function Schedulling({ navigation }: Props) {
           backgroundColor="transparent"
         />
         <BackButton
+          style={{ marginBottom: 20 }}
           color={theme.colors.shape}
           onPress={() => navigation.goBack()}
         />
