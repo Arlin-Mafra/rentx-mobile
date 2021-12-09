@@ -23,6 +23,7 @@ import {
   CarFooterDate,
 } from "./styles";
 import { useTheme } from "styled-components";
+import { LoadingCar } from "../../components/LoadingCar";
 
 interface CarsProps {
   id: string;
@@ -60,7 +61,7 @@ export function MyCars({ navigation }) {
           backgroundColor="transparent"
         />
         <BackButton
-          style={{ marginBottom: 40, marginTop: 10 }}
+          style={{ marginBottom: 30 }}
           color={theme.colors.shape}
           onPress={() => navigation.goBack()}
         />
@@ -78,7 +79,7 @@ export function MyCars({ navigation }) {
           <AppointmentsNumber>{cars.length}</AppointmentsNumber>
         </Appointments>
         {loading ? (
-          <Load />
+          <LoadingCar />
         ) : (
           <FlatList
             data={cars}

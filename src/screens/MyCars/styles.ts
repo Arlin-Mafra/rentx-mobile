@@ -31,7 +31,6 @@ export const  SubTitle = styled.Text`
     font-family: ${({theme})=> theme.fonts.secondary_400};
     font-size: ${RFValue(15)}px;
     margin-top: 18px;
-    margin-bottom: 34px;
 `;
 
 export const Content = styled.View`

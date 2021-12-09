@@ -8,6 +8,7 @@ import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
 import api from "../../services/api";
 import { Load } from "../../components/Load";
+import { LoadingCar } from "../../components/LoadingCar";
 import theme from "../../styles/theme";
 import Animated, {
   useAnimatedGestureHandler,
@@ -90,7 +91,7 @@ export function Home({ navigation }: Props) {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadingCar />
       ) : (
         <CarList
           data={cars}
