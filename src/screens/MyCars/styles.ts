@@ -10,13 +10,13 @@ export const Container = styled.View`
 
 export const Header = styled.View`
     width: 100%;
-    height: 375px;
+    height: 350px;
     background-color: ${({theme})=> theme.colors.header};
 
     justify-content: center;
     padding: 25px;
 
-    padding-top: ${getStatusBarHeight() + 30}px;
+    padding-top: ${getStatusBarHeight()}px;
 `;
 export const  Title = styled.Text`
     color: ${({theme})=> theme.colors.shape};
@@ -30,7 +30,8 @@ export const  SubTitle = styled.Text`
     color: ${({theme})=> theme.colors.shape};
     font-family: ${({theme})=> theme.fonts.secondary_400};
     font-size: ${RFValue(15)}px;
-    margin-top: 24px;
+    margin-top: 18px;
+    margin-bottom: 34px;
 `;
 
 export const Content = styled.View`

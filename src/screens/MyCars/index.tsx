@@ -60,6 +60,7 @@ export function MyCars({ navigation }) {
           backgroundColor="transparent"
         />
         <BackButton
+          style={{ marginBottom: 40, marginTop: 10 }}
           color={theme.colors.shape}
           onPress={() => navigation.goBack()}
         />
