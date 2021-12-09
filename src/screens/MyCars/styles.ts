@@ -68,10 +68,14 @@ export const CarFooter = styled.View`
     align-items: center;
     padding: 24px 15px;
 
-    background-color: ${({theme})=> theme.colors.background_secondary};            
+    background-color: ${({theme})=> theme.colors.background_secondary};   
+    
+    border-top-width: 2px;
+    border-top-color: ${({theme})=> theme.colors.shape}; 
 `;
 export const CarFooterPeriod = styled.View`
     flex-direction: row;
+   
 `;
 export const CarFooterTitle = styled.Text`
     color: ${({theme})=> theme.colors.text_detail};
