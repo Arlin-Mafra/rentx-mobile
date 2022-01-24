@@ -10,10 +10,12 @@ interface Props {
   enabled?: boolean;
   loading?: boolean;
   onPress: () => void;
+  ligth?: boolean;
 }
 export function Button({
   title,
   color,
+  ligth,
   enabled = true,
   loading = false,
   onPress,
@@ -30,7 +32,7 @@ export function Button({
       {loading ? (
         <ActivityIndicator size={20} color={theme.colors.shape} />
       ) : (
-        <Title>{title}</Title>
+        <Title ligth={ligth}>{title}</Title>
       )}
     </Container>
   );
