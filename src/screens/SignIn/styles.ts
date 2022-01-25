@@ -5,7 +5,6 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     flex: 1;
     padding: 0 32px;
-
     background: ${({theme}) => theme.colors.background_primary};
 `;
 export const Header = styled.View`
@@ -24,9 +23,10 @@ export const SubTitle = styled.Text`
     color: ${({theme}) => theme.colors.text};
     line-height: ${RFValue(25)}px ;
 `;
-export const Footer = styled.View`
-
-`;
 export const Form = styled.View`
     margin: 64px 0;
+`;
+
+export const Footer = styled.View`
+    bottom: 0px;
 `;
