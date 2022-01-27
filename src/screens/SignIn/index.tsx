@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Keyboard, KeyboardAvoidingView, StatusBar } from "react-native";
+import { Alert, Keyboard, KeyboardAvoidingView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import * as Yup from "yup";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
@@ -11,6 +12,26 @@ import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 export function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  async function handleSignIn() {
+    try {
+      const Schema = Yup.object().shape({
+        email: Yup.string()
+          .required("O email é obrigatório!")
+          .email("Digite um formato de email valido!"),
+        password: Yup.string().required("O password é obrigatório!"),
+      });
+
+      await Schema.validate({ email, password });
+      Alert.alert("Login realizado!");
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opa", error.message);
+      } else {
+        Alert.alert("Erro na autenticação", "Verifique suas credenciais.");
+      }
+    }
+  }
   return (
     <Container>
       <KeyboardAvoidingView behavior="position" enabled>
@@ -50,9 +71,9 @@ export function SignIn() {
           <Footer>
             <Button
               title="Login"
-              enabled={false}
+              enabled={true}
               loading={false}
-              onPress={() => {}}
+              onPress={handleSignIn}
             />
             <Button
               title="Criar conta gratuíta"
