@@ -28,8 +28,8 @@ export function PasswordInput({ iconName, value, ...rest }: Props) {
     setIsPassVisible((prestate) => !prestate);
   }
   return (
-    <Container isFocused={isFocused}>
-      <IconContainer>
+    <Container>
+      <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}
           size={24}
@@ -37,13 +37,14 @@ export function PasswordInput({ iconName, value, ...rest }: Props) {
         />
       </IconContainer>
       <InputText
+        isFocused={isFocused}
         {...rest}
         secureTextEntry={isPassVisible}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
       />
       <BorderlessButton onPress={handlePassVisibilyChange}>
-        <IconContainer>
+        <IconContainer isFocused={isFocused}>
           <Feather
             name={isPassVisible ? "eye" : "eye-off"}
             size={24}
