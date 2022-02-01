@@ -1,3 +1,4 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Alert, Keyboard, KeyboardAvoidingView, StatusBar } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
@@ -9,7 +10,9 @@ import theme from "../../styles/theme";
 
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 
-export function SignIn() {
+type Props = NativeStackScreenProps<any, "SignIn">;
+
+export function SignIn({ navigation }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,6 +34,10 @@ export function SignIn() {
         Alert.alert("Erro na autenticação", "Verifique suas credenciais.");
       }
     }
+  }
+
+  function hendleNewAccount() {
+    navigation.navigate("SignUpFirstStep");
   }
   return (
     <Container>
@@ -79,9 +86,9 @@ export function SignIn() {
               title="Criar conta gratuíta"
               color={theme.colors.background_secondary}
               ligth
-              enabled={false}
+              enabled={true}
               loading={false}
-              onPress={() => {}}
+              onPress={hendleNewAccount}
             />
           </Footer>
         </TouchableWithoutFeedback>

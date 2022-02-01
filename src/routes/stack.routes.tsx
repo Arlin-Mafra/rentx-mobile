@@ -9,9 +9,11 @@ import { CarDetails } from "../screens/CarDetails";
 import { MyCars } from "../screens/MyCars";
 import { Splash } from "../screens/Splash";
 import { SignIn } from "../screens/SignIn";
+import { SignUpFirstStep } from "../screens/SignUp/SignUpFirstStep";
 
 type RootStackParamList = {
   SignIn: undefined;
+  SignUpFirstStep: undefined;
   Home: undefined;
   CarDetails: undefined;
   Schedulling: undefined;
@@ -31,6 +33,7 @@ export function StackRoutes() {
         component={SignIn}
         options={{ gestureEnabled: false }}
       />
+      <Screen name="SignUpFirstStep" component={SignUpFirstStep} />
       <Screen name="Splash" component={Splash} />
       <Screen name="Home" component={Home} />
       <Screen name="CarDetails" component={CarDetails} />
