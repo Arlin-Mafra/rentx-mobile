@@ -26,7 +26,6 @@ export function SignUpSecondStep({ navigation }: Props) {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const route = useRoute();
   const { user } = route.params as Params;
-
   function handleBack() {
     navigation.goBack();
   }
@@ -38,6 +37,11 @@ export function SignUpSecondStep({ navigation }: Props) {
     if (password != passwordConfirm) {
       Alert.alert("Opa!", "A senha e a confirmação não conferem!");
     }
+    navigation.navigate("Confirmation", {
+      title: "Conta criada!",
+      message: `Agora é só fazer o login\n e aproveitar.`,
+      nextScreenRoute: "SignIn",
+    });
   }
   return (
     <Container>

@@ -7,11 +7,21 @@ import DoneSvg from "../../assets/done.svg";
 
 import { Container, Content, Title, Message, Footer } from "./styles";
 import { ConfirmButton } from "../../components/ConfirmButton";
+import { useRoute } from "@react-navigation/native";
 
-type Props = NativeStackScreenProps<any, "SchedullingComplete">;
+type Props = NativeStackScreenProps<any, "Confirmation">;
 
-export function SchedullingComplete({ navigation }: Props) {
+interface Params {
+  title: string;
+  message?: string;
+  nextScreenRoute: string;
+}
+
+export function Confirmation({ navigation }: Props) {
   const { width } = useWindowDimensions();
+
+  const route = useRoute();
+  const { title, message, nextScreenRoute } = route.params as Params;
   return (
     <Container>
       <StatusBar
@@ -23,16 +33,15 @@ export function SchedullingComplete({ navigation }: Props) {
 
       <Content>
         <DoneSvg width={80} height={80} />
-        <Title>Carro alugado!</Title>
+        <Title>{title}</Title>
 
-        <Message>
-          Agora você só precisa ir {"\n"}
-          até a concessionária da RENTX {"\n"}
-          pegar seu automóvel
-        </Message>
+        <Message>{message}</Message>
       </Content>
       <Footer>
-        <ConfirmButton title="Ok" onPress={() => navigation.navigate("Home")} />
+        <ConfirmButton
+          title="Ok"
+          onPress={() => navigation.navigate(nextScreenRoute)}
+        />
       </Footer>
     </Container>
   );

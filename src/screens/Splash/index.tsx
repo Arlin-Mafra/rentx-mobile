@@ -18,7 +18,7 @@ import { Container } from "./styles";
 
 type Props = NativeStackScreenProps<any, "Splash">;
 
-export function Splash({ navigation }) {
+export function Splash({ navigation }: Props) {
   const splashAnimation = useSharedValue(0);
 
   const brandStyle = useAnimatedStyle(() => {

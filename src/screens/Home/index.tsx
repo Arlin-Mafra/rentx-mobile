@@ -23,12 +23,12 @@ type Props = NativeStackScreenProps<any, "Home">;
 
 export function Home({ navigation }: Props) {
   const [cars, setCars] = useState<CarDTO[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     async function getCars() {
       try {
+        setLoading(true);
         const response = await api.get("/cars");
-
         setCars(response.data);
       } catch (error) {
         console.log(error);

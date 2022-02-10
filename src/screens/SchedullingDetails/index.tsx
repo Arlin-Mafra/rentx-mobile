@@ -84,7 +84,14 @@ export function SchedullingDetails({ navigation }: Props) {
 
     await api
       .put(`/schedules_bycars/${car.id}`, { ...dates, unavailable_dates })
-      .then(() => navigation.navigate("SchedullingComplete"))
+      .then(() =>
+        navigation.navigate("Confirmation", {
+          title: "Carro Alugado!",
+          message: `Agora você só precisa ir\n 
+          até a concessionária da RENTX\n pegar seu automóvel`,
+          nextScreenRoute: "Home",
+        })
+      )
       .catch(() => {
         setLoading(false);
         Alert.alert("Não foi possível finalizar o agendameto!");
