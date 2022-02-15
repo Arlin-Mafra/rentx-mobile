@@ -38,7 +38,7 @@ import { CarDTO } from "../../dtos/CarDTO";
 import { getAccessoriesIcon } from "../../Utils/getAccessoriesIcon";
 import { format } from "date-fns";
 import { getPlataformDate } from "../../Utils/getPlataformDate";
-import api from "../../services/api";
+import { api } from "../../services/api";
 import { Alert, StatusBar } from "react-native";
 
 type Props = NativeStackScreenProps<any, "SchedullingDetails">;
@@ -64,7 +64,7 @@ export function SchedullingDetails({ navigation }: Props) {
   const route = useRoute();
   const { car, dates } = route.params as Params;
 
-  const rentTotal = Number(dates.length * car.rent.price);
+  const rentTotal = Number(dates.length * car.price);
 
   async function handleConfirmRental() {
     setLoading(true);
@@ -72,7 +72,7 @@ export function SchedullingDetails({ navigation }: Props) {
 
     const unavailable_dates = [...response.data.unavailable_dates, ...dates];
 
-    await api.post(`/schedules_byuser`, {
+    await api.post(`/rentals`, {
       user_id: 1,
       car,
       startDate: format(getPlataformDate(new Date(dates[0])), "dd/MM/yyyy"),
@@ -83,7 +83,7 @@ export function SchedullingDetails({ navigation }: Props) {
     });
 
     await api
-      .put(`/schedules_bycars/${car.id}`, { ...dates, unavailable_dates })
+      .put(`/rentals/${car.id}`, { ...dates, unavailable_dates })
       .then(() =>
         navigation.navigate("Confirmation", {
           title: "Carro Alugado!",
@@ -129,8 +129,8 @@ export function SchedullingDetails({ navigation }: Props) {
           </Description>
 
           <Rent>
-            <Period>{car.rent.period}</Period>
-            <Price>R$ {car.rent.price}</Price>
+            <Period>{car.period}</Period>
+            <Price>R$ {car.price}</Price>
           </Rent>
         </Details>
         <Acessories>
@@ -170,7 +170,7 @@ export function SchedullingDetails({ navigation }: Props) {
           <RentalPriceLabel>TOTAL</RentalPriceLabel>
           <RentalPriceDetails>
             <RentalPriceQuota>
-              R$ {`${car.rent.price} x ${dates.length} diárias`}
+              R$ {`${car.price} x ${dates.length} diárias`}
             </RentalPriceQuota>
             <RentalPriceTotal>R$ {rentTotal}</RentalPriceTotal>
           </RentalPriceDetails>
