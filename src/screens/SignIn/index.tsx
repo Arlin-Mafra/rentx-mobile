@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
+import { useAuth } from "../../hooks/Auth";
 import theme from "../../styles/theme";
 
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
@@ -15,6 +16,8 @@ type Props = NativeStackScreenProps<any, "SignIn">;
 export function SignIn({ navigation }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { signIn } = useAuth();
 
   async function handleSignIn() {
     try {
@@ -26,12 +29,15 @@ export function SignIn({ navigation }: Props) {
       });
 
       await Schema.validate({ email, password });
-      Alert.alert("Login realizado!");
+      signIn({ email, password });
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
-        Alert.alert("Opa", error.message);
+        return Alert.alert("Opa", error.message);
       } else {
-        Alert.alert("Erro na autenticação", "Verifique suas credenciais.");
+        return Alert.alert(
+          "Erro na autenticação",
+          "Verifique suas credenciais."
+        );
       }
     }
   }

@@ -54,15 +54,16 @@ export function SignUpSecondStep({ navigation }: Props) {
         driver_license: user.driverLicense,
         password,
       });
+
+      navigation.navigate("Confirmation", {
+        title: "Conta criada!",
+        message: `Agora é só fazer o login\n e aproveitar.`,
+        nextScreenRoute: "SignIn",
+      });
     } catch (error) {
       console.log(error);
-      Alert.alert("Opa!", "Algo deu errado na criação da sua conta.");
+      return Alert.alert("Opa!", "Algo deu errado na criação da sua conta.");
     }
-    navigation.navigate("Confirmation", {
-      title: "Conta criada!",
-      message: `Agora é só fazer o login\n e aproveitar.`,
-      nextScreenRoute: "SignIn",
-    });
   }
   return (
     <Container>
@@ -71,8 +72,8 @@ export function SignUpSecondStep({ navigation }: Props) {
           <Header>
             <BackButton onPress={handleBack} />
             <Steps>
-              <Bullet active={true} />
               <Bullet active={false} />
+              <Bullet active={true} />
             </Steps>
           </Header>
           <Title>Crie sua{"\n"}conta</Title>

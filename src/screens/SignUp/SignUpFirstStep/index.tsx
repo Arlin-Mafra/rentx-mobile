@@ -17,6 +17,7 @@ import {
   Form,
   FormTitle,
 } from "./styels";
+import { useAuth } from "../../../hooks/Auth";
 
 type Props = NativeStackScreenProps<any, "SignUpFirstStep">;
 
