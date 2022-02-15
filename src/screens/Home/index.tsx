@@ -6,8 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { StatusBar, StyleSheet, BackHandler } from "react-native";
 import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
-import api from "../../services/api";
-import { Load } from "../../components/Load";
+import { api } from "../../services/api";
 import { LoadingCar } from "../../components/LoadingCar";
 import theme from "../../styles/theme";
 import Animated, {

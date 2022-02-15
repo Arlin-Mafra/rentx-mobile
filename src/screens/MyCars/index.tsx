@@ -5,7 +5,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { Car } from "../../components/Car";
 import { Load } from "../../components/Load";
 import { CarDTO } from "../../dtos/CarDTO";
-import api from "../../services/api";
+import { api } from "../../services/api";
 
 import {
   Container,
