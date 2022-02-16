@@ -1,5 +1,5 @@
 import { Model } from "@nozbe/watermelondb"
-import {field} from "@babel/plugin-proposal-decorators"
+import {field} from "@nozbe/watermelondb/decorators"
 
 
 class User extends Model{
