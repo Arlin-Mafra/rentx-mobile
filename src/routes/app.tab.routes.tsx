@@ -2,7 +2,6 @@ import React from "react";
 import { Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Home } from "../screens/Home";
 import { MyCars } from "../screens/MyCars";
 import { AppStackRoutes } from "./app.stack.routes";
 import theme from "../styles/theme";
@@ -10,9 +9,10 @@ import theme from "../styles/theme";
 import HomeSvg from "../assets/home.svg";
 import CarSvg from "../assets/car.svg";
 import PeopleSvg from "../assets/people.svg";
+import { Profile } from "../screens/Profile";
 
 type RootStackParamList = {
-  Home: undefined;
+  AppStackRoutes: undefined;
   Profile: undefined;
   MyCars: undefined;
 };
@@ -35,7 +35,7 @@ export function AppTabRoutes() {
       }}
     >
       <Screen
-        name="Home"
+        name="AppStackRoutes"
         component={AppStackRoutes}
         options={{
           tabBarIcon: ({ color }) => (
@@ -54,7 +54,7 @@ export function AppTabRoutes() {
       />
       <Screen
         name="Profile"
-        component={Home}
+        component={Profile}
         options={{
           tabBarIcon: ({ color }) => (
             <PeopleSvg width={24} height={24} fill={color} />

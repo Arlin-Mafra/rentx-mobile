@@ -25,18 +25,27 @@ export function Home({ navigation }: Props) {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
+    let isMounted = true;
     async function getCars() {
       try {
         setLoading(true);
         const response = await api.get("/cars");
-        setCars(response.data);
+        if (isMounted) {
+          setCars(response.data);
+        }
       } catch (error) {
         console.log(error);
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     }
     getCars();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
