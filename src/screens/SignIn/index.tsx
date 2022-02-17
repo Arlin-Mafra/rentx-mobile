@@ -6,7 +6,6 @@ import * as Yup from "yup";
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { PasswordInput } from "../../components/PasswordInput";
-import { database } from "../../database";
 import { useAuth } from "../../hooks/Auth";
 import theme from "../../styles/theme";
 
@@ -47,15 +46,6 @@ export function SignIn({ navigation }: Props) {
     navigation.navigate("SignUpFirstStep");
   }
 
-  useEffect(() => {
-    async function loadData() {
-      const userCollection = database.get("users");
-      const users = await userCollection.query().fetch();
-      console.log(users);
-    }
-
-    loadData();
-  }, []);
   return (
     <Container>
       <KeyboardAvoidingView behavior="position" enabled>

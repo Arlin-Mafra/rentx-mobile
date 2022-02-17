@@ -15,6 +15,7 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
+import { database } from "../../database";
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
