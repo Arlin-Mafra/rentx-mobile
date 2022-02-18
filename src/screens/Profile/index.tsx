@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import { BackButton } from "../../components/BackButton";
 import { LogOutButton } from "../../components/LogOutButton ";
@@ -14,11 +14,20 @@ import {
   PhotoContainer,
   Photo,
   PhotoButton,
+  Content,
+  Options,
+  Option,
+  OptionTitle,
 } from "./styles";
 
 type Props = NativeStackScreenProps<any, "Profile">;
 
 export function Profile({ navigation }: Props) {
+  const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
+
+  function handleChangeOption(option: "dataEdit" | "passwordEdit") {
+    setOption(option);
+  }
   return (
     <Container>
       <StatusBar
@@ -47,6 +56,25 @@ export function Profile({ navigation }: Props) {
           </PhotoButton>
         </PhotoContainer>
       </Header>
+
+      <Content>
+        <Options>
+          <Option
+            active={option === "dataEdit"}
+            onPress={() => handleChangeOption("dataEdit")}
+          >
+            <OptionTitle active={option === "dataEdit"}>Dados</OptionTitle>
+          </Option>
+          <Option
+            active={option === "passwordEdit"}
+            onPress={() => handleChangeOption("passwordEdit")}
+          >
+            <OptionTitle active={option === "passwordEdit"}>
+              Trocar senha
+            </OptionTitle>
+          </Option>
+        </Options>
+      </Content>
     </Container>
   );
 }
