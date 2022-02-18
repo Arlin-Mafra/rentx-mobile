@@ -1,5 +1,6 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState } from "react";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import * as ImagePicker from "expo-image-picker";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
@@ -33,12 +34,32 @@ import { useAuth } from "../../hooks/Auth";
 type Props = NativeStackScreenProps<any, "Profile">;
 
 export function Profile({ navigation }: Props) {
-  const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
-
   const { user } = useAuth();
+
+  const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
+  const [avatar, setAvatar] = useState(user.avatar);
+  const [name, setName] = useState(user.name);
+  const [driver_license, setDriverLicense] = useState(user.driver_license);
 
   function handleChangeOption(option: "dataEdit" | "passwordEdit") {
     setOption(option);
+  }
+
+  async function handleSelectAvatar() {
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 4],
+      quality: 1,
+    });
+
+    if (result.cancelled) {
+      return;
+    }
+
+    if (result.uri) {
+      setAvatar(result.uri);
+    }
   }
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -60,12 +81,14 @@ export function Profile({ navigation }: Props) {
             </HeaderContent>
 
             <PhotoContainer>
-              <Photo
-                source={{
-                  uri: "https://avatars.githubusercontent.com/u/55093136?v=4",
-                }}
-              />
-              <PhotoButton>
+              {!!avatar && (
+                <Photo
+                  source={{
+                    uri: avatar,
+                  }}
+                />
+              )}
+              <PhotoButton onPress={handleSelectAvatar}>
                 <Feather name="camera" color={theme.colors.shape} size={24} />
               </PhotoButton>
             </PhotoContainer>
@@ -95,6 +118,7 @@ export function Profile({ navigation }: Props) {
                   placeholder="Nome"
                   autoCorrect={false}
                   defaultValue={user.name}
+                  onChangeText={setName}
                 />
                 <Input
                   iconName="mail"
@@ -105,6 +129,7 @@ export function Profile({ navigation }: Props) {
                   iconName="credit-card"
                   placeholder="CNH"
                   defaultValue={user.driver_license}
+                  onChangeText={setDriverLicense}
                   keyboardType="numeric"
                 />
               </Section>
