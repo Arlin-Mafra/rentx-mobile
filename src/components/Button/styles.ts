@@ -12,6 +12,7 @@ interface ButtonTextProps{
 export const Container = styled(RectButton)<ButtonProps>`
   width: 100%;
   padding: 19px;
+  margin-top: 16px;
   margin-bottom: 8px;
   justify-content: center;
   align-items: center;

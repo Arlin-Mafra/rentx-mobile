@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import * as Yup from "yup";
 import * as ImagePicker from "expo-image-picker";
 import {
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  Alert,
 } from "react-native";
 import { BackButton } from "../../components/BackButton";
 import { LogOutButton } from "../../components/LogOutButton ";
@@ -30,11 +32,12 @@ import { Input } from "../../components/Input";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { PasswordInput } from "../../components/PasswordInput";
 import { useAuth } from "../../hooks/Auth";
+import { Button } from "../../components/Button";
 
 type Props = NativeStackScreenProps<any, "Profile">;
 
 export function Profile({ navigation }: Props) {
-  const { user, SignOut } = useAuth();
+  const { user, SignOut, updatedUser } = useAuth();
 
   const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
   const [avatar, setAvatar] = useState(user.avatar);
@@ -59,6 +62,36 @@ export function Profile({ navigation }: Props) {
 
     if (result.uri) {
       setAvatar(result.uri);
+    }
+  }
+
+  async function handleUpdateUser() {
+    try {
+      const schema = Yup.object().shape({
+        driver_license: Yup.number().required("CNH é obrigatória!"),
+        name: Yup.string().required("O nome é obrigatório!"),
+      });
+
+      const data = { driver_license, name };
+      await schema.validate(data);
+
+      await updatedUser({
+        id: user.id,
+        user_id: user.user_id,
+        name,
+        avatar,
+        driver_license,
+        token: user.token,
+        email: user.email,
+      });
+      Alert.alert("Perfil Atualizado!");
+      navigation.navigate("Home");
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        Alert.alert("Opa!", error.message);
+      } else {
+        Alert.alert("Opa!", "Não foi possível atualizar o perfil.");
+      }
     }
   }
   return (
@@ -132,6 +165,7 @@ export function Profile({ navigation }: Props) {
                   onChangeText={setDriverLicense}
                   keyboardType="numeric"
                 />
+                <Button title="Salvar alterações" onPress={handleUpdateUser} />
               </Section>
             ) : (
               <Section>
