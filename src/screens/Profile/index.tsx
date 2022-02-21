@@ -34,7 +34,7 @@ import { useAuth } from "../../hooks/Auth";
 type Props = NativeStackScreenProps<any, "Profile">;
 
 export function Profile({ navigation }: Props) {
-  const { user } = useAuth();
+  const { user, SignOut } = useAuth();
 
   const [option, setOption] = useState<"dataEdit" | "passwordEdit">("dataEdit");
   const [avatar, setAvatar] = useState(user.avatar);
@@ -77,7 +77,7 @@ export function Profile({ navigation }: Props) {
                 color={theme.colors.background_secondary}
               />
               <Title>Editar Perfil</Title>
-              <LogOutButton />
+              <LogOutButton onPress={SignOut} />
             </HeaderContent>
 
             <PhotoContainer>

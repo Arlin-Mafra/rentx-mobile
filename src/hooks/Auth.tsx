@@ -27,6 +27,7 @@ interface SignInCredentials {
 interface AuthContextData {
   user: User;
   signIn: (crendials: SignInCredentials) => Promise<void>;
+  SignOut: () => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -47,7 +48,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
       const userCollection = database.get<ModelUser>("users");
       await database.write(async () => {
-        await userCollection.create((newUser) => {
+        const userCreated = await userCollection.create((newUser) => {
           (newUser.user_id = user.id),
             (newUser.name = user.name),
             (newUser.email = user.email),
@@ -55,9 +56,22 @@ function AuthProvider({ children }: AuthProviderProps) {
             (newUser.driver_license = user.driver_license),
             (newUser.token = token);
         });
+        const userData = userCreated._raw as unknown as User;
+        setData(userData);
       });
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 
-      setData({ token, ...user });
+  async function SignOut() {
+    try {
+      const userCollection = database.get<ModelUser>("users");
+      await database.write(async () => {
+        const userSelected = await userCollection.find(data.id);
+        await userSelected.destroyPermanently();
+      });
+      setData({} as User);
     } catch (error) {
       throw new Error(error);
     }
@@ -71,6 +85,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       if (response.length > 0) {
         const userData = response[0]._raw as unknown as User;
         api.defaults.headers.authorization = `Bearer ${userData.token}`;
+        console.log(userData);
         setData(userData);
       }
     }
@@ -78,7 +93,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, user: data }}>
+    <AuthContext.Provider value={{ signIn, SignOut, user: data }}>
       {children}
     </AuthContext.Provider>
   );
