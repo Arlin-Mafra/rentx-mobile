@@ -29,6 +29,7 @@ interface AuthContextData {
   signIn: (crendials: SignInCredentials) => Promise<void>;
   SignOut: () => Promise<void>;
   updatedUser: (user: User) => Promise<void>;
+  loading: boolean;
 }
 
 interface AuthProviderProps {
@@ -39,6 +40,7 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<User>({} as User);
+  const [loading, setLoading] = useState(false);
 
   async function signIn({ email, password }: SignInCredentials) {
     try {
@@ -96,7 +98,8 @@ function AuthProvider({ children }: AuthProviderProps) {
   }
 
   useEffect(() => {
-    async function loadData() {
+    async function loadUserData() {
+      setLoading(true);
       const userCollection = database.get<ModelUser>("users");
       const response = await userCollection.query().fetch();
 
@@ -105,15 +108,17 @@ function AuthProvider({ children }: AuthProviderProps) {
         api.defaults.headers.common[
           "authorization"
         ] = `Bearer ${userData.token}`;
-        console.log(userData);
         setData(userData);
+        setLoading(false);
       }
     }
-    loadData();
+    loadUserData();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, SignOut, updatedUser, user: data }}>
+    <AuthContext.Provider
+      value={{ signIn, SignOut, updatedUser, loading, user: data }}
+    >
       {children}
     </AuthContext.Provider>
   );

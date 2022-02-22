@@ -5,7 +5,7 @@ import {field} from "@nozbe/watermelondb/decorators"
 class Car extends Model{
     
     static table = 'cars'
-    
+
     @field('name')
     name!:string
     

@@ -1,14 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { StatusBar, StyleSheet, BackHandler } from "react-native";
+import { synchronize } from "@nozbe/watermelondb/sync";
+
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
 import { useNetInfo } from "@react-native-community/netinfo";
-import { CarDTO } from "../../dtos/CarDTO";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Ionicons } from "@expo/vector-icons";
-import { StatusBar, StyleSheet, BackHandler, Alert } from "react-native";
-import Logo from "../../assets/logo.svg";
+
+import { CarDTO } from "../../dtos/CarDTO";
 import { Car } from "../../components/Car";
+import { Car as ModelCar } from "../../database/models/Car";
+
+import { Ionicons } from "@expo/vector-icons";
+import Logo from "../../assets/logo.svg";
+
 import { api } from "../../services/api";
 import { LoadingCar } from "../../components/LoadingCar";
+
 import theme from "../../styles/theme";
 import Animated, {
   useAnimatedGestureHandler,
@@ -16,35 +23,70 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
+import { database } from "../../database";
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
 type Props = NativeStackScreenProps<any, "Home">;
 
 export function Home({ navigation }: Props) {
-  const [cars, setCars] = useState<CarDTO[]>([]);
+  const [cars, setCars] = useState<ModelCar[]>([]);
   const [loading, setLoading] = useState(false);
 
   const netInfo = useNetInfo();
+  const synchronizing = useRef(false);
+
+  useEffect(() => {
+    async function offLineSynchronized() {
+      if (netInfo.isConnected && !synchronizing.current) {
+        synchronizing.current = true;
+        try {
+          await synchronize({
+            database,
+            pullChanges: async ({ lastPulledAt }) => {
+              const response = await api.get(
+                `cars/sync/pull?lastPulledVersion=${lastPulledAt || 0}`
+              );
+
+              const { changes, latestVersion } = await response.data;
+
+              return { changes, timestamp: latestVersion };
+            },
+            pushChanges: async ({ changes }) => {
+              const user = changes.users;
+              await api.post("/users/sync", user);
+            },
+          });
+        } catch (error) {
+          throw new Error(error);
+        } finally {
+          synchronizing.current = false;
+        }
+      }
+    }
+    offLineSynchronized();
+  }, [netInfo.isConnected]);
 
   useEffect(() => {
     let isMounted = true;
-    async function getCars() {
+
+    async function fetchCars() {
       try {
         setLoading(true);
-        const response = await api.get("/cars");
+        const carCollection = database.get<ModelCar>("cars");
+        const cars = await carCollection.query().fetch();
+        console.log(cars);
         if (isMounted) {
-          setCars(response.data);
+          setCars(cars);
         }
       } catch (error) {
-        console.log(error);
       } finally {
         if (isMounted) {
           setLoading(false);
         }
       }
     }
-    getCars();
+    fetchCars();
 
     return () => {
       isMounted = false;
@@ -56,14 +98,6 @@ export function Home({ navigation }: Props) {
       return true;
     });
   }, []);
-
-  useEffect(() => {
-    if (netInfo.isConnected) {
-      Alert.alert("Você está on-line");
-    } else {
-      Alert.alert("Você está of-line");
-    }
-  }, [netInfo.isConnected]);
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
