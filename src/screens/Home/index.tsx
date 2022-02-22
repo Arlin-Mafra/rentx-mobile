@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { RectButton, PanGestureHandler } from "react-native-gesture-handler";
+import { useNetInfo } from "@react-native-community/netinfo";
 import { CarDTO } from "../../dtos/CarDTO";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
-import { StatusBar, StyleSheet, BackHandler } from "react-native";
+import { StatusBar, StyleSheet, BackHandler, Alert } from "react-native";
 import Logo from "../../assets/logo.svg";
 import { Car } from "../../components/Car";
 import { api } from "../../services/api";
@@ -15,7 +16,6 @@ import Animated, {
   useSharedValue,
 } from "react-native-reanimated";
 import { Container, Header, HeaderContent, TotalCars, CarList } from "./styles";
-import { database } from "../../database";
 
 const ButtonAnimated = Animated.createAnimatedComponent(RectButton);
 
@@ -24,6 +24,9 @@ type Props = NativeStackScreenProps<any, "Home">;
 export function Home({ navigation }: Props) {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(false);
+
+  const netInfo = useNetInfo();
+
   useEffect(() => {
     let isMounted = true;
     async function getCars() {
@@ -53,6 +56,14 @@ export function Home({ navigation }: Props) {
       return true;
     });
   }, []);
+
+  useEffect(() => {
+    if (netInfo.isConnected) {
+      Alert.alert("Você está on-line");
+    } else {
+      Alert.alert("Você está of-line");
+    }
+  }, [netInfo.isConnected]);
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
