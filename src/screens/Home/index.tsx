@@ -38,7 +38,7 @@ export function Home({ navigation }: Props) {
 
   useEffect(() => {
     async function offLineSynchronized() {
-      if (netInfo.isConnected && !synchronizing.current) {
+      if (netInfo.isConnected === true && !synchronizing.current) {
         synchronizing.current = true;
         try {
           await synchronize({
@@ -75,7 +75,6 @@ export function Home({ navigation }: Props) {
         setLoading(true);
         const carCollection = database.get<ModelCar>("cars");
         const cars = await carCollection.query().fetch();
-        console.log(cars);
         if (isMounted) {
           setCars(cars);
         }
@@ -99,7 +98,7 @@ export function Home({ navigation }: Props) {
     });
   }, []);
 
-  function handleCarDetails(car: CarDTO) {
+  function handleCarDetails(car: ModelCar) {
     navigation.navigate("CarDetails", { car });
   }
   function handleMyCarsOpen() {
