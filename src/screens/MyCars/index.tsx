@@ -3,9 +3,11 @@ import { FlatList, StatusBar } from "react-native";
 import { BackButton } from "../../components/BackButton";
 import { AntDesign } from "@expo/vector-icons";
 import { Car } from "../../components/Car";
-import { Load } from "../../components/Load";
 import { CarDTO } from "../../dtos/CarDTO";
 import { api } from "../../services/api";
+import { useTheme } from "styled-components";
+import { LoadingCar } from "../../components/LoadingCar";
+import { Car as ModelCar } from "../../database/models/Car";
 
 import {
   Container,
@@ -22,15 +24,13 @@ import {
   CarFooterTitle,
   CarFooterDate,
 } from "./styles";
-import { useTheme } from "styled-components";
-import { LoadingCar } from "../../components/LoadingCar";
 
 interface CarsProps {
   id: string;
   user_id: string;
-  car: CarDTO;
-  startDate: string;
-  endDate: string;
+  car: ModelCar;
+  start_date: string;
+  end_date: string;
 }
 
 export function MyCars({ navigation }) {
@@ -42,7 +42,7 @@ export function MyCars({ navigation }) {
   useEffect(() => {
     async function fetchCars() {
       try {
-        const response = await api.get(`/schedules_byuser?user_id=1`);
+        const response = await api.get(`/rentals`);
         setCars(response.data);
       } catch (error) {
         console.log(error);
@@ -94,13 +94,13 @@ export function MyCars({ navigation }) {
                 <CarFooter>
                   <CarFooterTitle>Periodo</CarFooterTitle>
                   <CarFooterPeriod>
-                    <CarFooterDate>{item.startDate}</CarFooterDate>
+                    <CarFooterDate>{item.start_date}</CarFooterDate>
                     <AntDesign
                       name="arrowright"
                       color={theme.colors.text}
                       size={20}
                     />
-                    <CarFooterDate>{item.endDate}</CarFooterDate>
+                    <CarFooterDate>{item.end_date}</CarFooterDate>
                   </CarFooterPeriod>
                 </CarFooter>
               </CarWrapper>

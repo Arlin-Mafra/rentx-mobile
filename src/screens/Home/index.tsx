@@ -49,7 +49,7 @@ export function Home({ navigation }: Props) {
               );
 
               const { changes, latestVersion } = await response.data;
-
+              console.log("##Changes##", changes);
               return { changes, timestamp: latestVersion };
             },
             pushChanges: async ({ changes }) => {
